@@ -3,17 +3,27 @@ var r = require('rethinkdb');
 
 var app = express();
 
-r.connect({host:'rt'}).then(cn => {
-    app._rConn = cn;
-    console.log("Got connection: ", cn);
-})
+r.connect({host:'rt'})
+    .then(rememberConnection)
+//    .then(ensureThatTableExists('weather'))
+    .then(startServer);
+
+
+function rememberConnection(conn) {
+    app._rConn = conn;
+    console.log("Got connection: ", conn);
+}
+
+
+function startServer() {
+    app.listen(3000, function () {
+	console.log('Example app listening on port 3000!');
+    });
+}
 
 
 app.get('/', (_,res) => res.send('Hello, world!\n') );
 
-app.listen(3000, function () {
-    console.log('Example app listening on port 3000!');
-});
 
 app.post('/temp', (req, res) => recordTemperature(req.query.v, res));
 
@@ -25,7 +35,13 @@ function recordTemperature(temp, res) {
     r.table('weather').insert({
 	timestamp: new Date().toISOString(),
 	temperature: parseFloat(temp)
-    }).run(app._rConn).then(() => res.send('OK\n'));
+    }).run(app._rConn)
+	.then(() => res.send('OK\n'))
+	.error(handleError(res));
+}
+
+function handleError(res) {
+    return () => res.send(500, 'Internal error\n');
 }
 
 
@@ -35,7 +51,8 @@ function dumpTableHandlerFor(table) {
     return (req, res) =>
 	r.table(table).run(app._rConn)
 	.then((c) => c.toArray())
-	.then((r) => res.json(r));
+	.then((r) => res.json(r))
+    	.error(handleError(res));
 }
 
 
