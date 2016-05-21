@@ -1,0 +1,16 @@
+{
+    "name": "wether-server",
+    "version": "1.0.0",
+    "description": "Node server for the weather app",
+    "main": "index.js",
+    "scripts": {
+	"init": "npm install",
+	"start": "node src/app.js"
+    },
+    "author": "Mathias Kegelmann",
+    "license": "ISC",
+    "dependencies": {
+	"express": "^4.13.4",
+	"rethinkdb": "^2.3.1"
+    }
+}
