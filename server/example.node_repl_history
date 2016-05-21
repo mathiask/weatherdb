@@ -1,0 +1,53 @@
+exit()
+exit
+quit()
+)
+(
+;
+))
+)(
+quit)(
+quit
+r.table('t1').changes().run(c, (e,csr)=>csr.each((_,row)=>console.log(row)))
+r.table('t1').changes().run(c, (e,csr)=>csr.toArray((_,res)=>console.log(res)))
+r.table('t1').run(c, (e,csr)=>csr.toArray((_,res)=>console.log(res)))
+r.table('t1').run(c, (e,csr)=>console.log('result', csr.toArray((_,res)=>res)))
+r.table('t1').run(c, (e,csr)=>console.log('result', csr.toArray()))
+r.table('t1').run(c, (e,csr)=>console.log('result', csr.toArray))
+r.table('t1').run(c, (e,csr)=>console.log('result', csr))
+)
+r.table('t1').run(c, ()=>console.log('hello', 'world')
+r.table('t1').run(c)
+r.table('t1').run()
+r.table('t1').run
+r.table('t1')
+x
+x = r.db('test').run(c, (e,cr)=>e)
+r.db('test').run(c, (e,cr)=>e)
+r.db('test').run(c, (e,cr)=>cr)
+r.db('test').run(c, (e,cr)=>cr.toArray((e2,res)=>res))
+r.db('test').run(c, (e,cr)=>cr.toArray())
+r.db('test').run(c, (e,cr)=>console.log(cr))
+r.db('test').run(c)
+r.db('test')(1)
+r.db('test')()
+r.db('test')
+c
+r.connect({host:'172.17.0.2'}, (e,cn) => {c=cn})
+c
+var c=null
+r.db('test')
+r.db('test').table('t1')
+r.db('test').table('t1').filter({a:42})
+r
+r=require('rethinkdb')
+require('rethinkdb')
+exit
+quit
+}
+{
+class A
+f()
+f=()=>42
+require('rethinkdb')
+require
