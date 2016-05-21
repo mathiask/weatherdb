@@ -5,13 +5,24 @@ var app = express();
 
 r.connect({host:'rt'})
     .then(rememberConnection)
-//    .then(ensureThatTableExists('weather'))
+    .then(ensureThatTableExists('weather'))
     .then(startServer);
 
 
 function rememberConnection(conn) {
     app._rConn = conn;
-    console.log("Got connection: ", conn);
+    console.log('Got connection: ', conn);
+}
+
+function ensureThatTableExists(t) {
+    return () => {
+	console.log('Checking table');
+	r.db('test').tableList().contains(t).run(app._rConn)
+	    .then((b) => {
+		console.log('Table', t, 'found:', b);
+		return b ? null : r.db('test').tableCreate(t).run(app._rConn);
+	    });
+    };
 }
 
 
