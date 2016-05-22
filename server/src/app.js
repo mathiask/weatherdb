@@ -1,7 +1,9 @@
-var express = require('express');
-var r = require('rethinkdb');
+'use strict';
 
-var app = express();
+const express = require('express');
+const r = require('rethinkdb');
+
+const app = express();
 
 r.connect({host:'rethinkdb'})
     .then(rememberConnection)
@@ -68,6 +70,3 @@ function dumpTableHandlerFor(table) {
 
 
 app.get('/t1', dumpTableHandlerFor('t1'));
-
-
-
