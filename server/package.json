@@ -4,7 +4,6 @@
     "description": "Node server for the weather app",
     "main": "index.js",
     "scripts": {
-	"init": "npm install",
 	"start": "node src/app.js"
     },
     "author": "Mathias Kegelmann",

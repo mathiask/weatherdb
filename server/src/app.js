@@ -3,7 +3,7 @@ var r = require('rethinkdb');
 
 var app = express();
 
-r.connect({host:'rt'})
+r.connect({host:'rethinkdb'})
     .then(rememberConnection)
     .then(ensureThatTableExists('weather'))
     .then(startServer);
