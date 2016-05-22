@@ -1,5 +1,5 @@
 {
-    "name": "wether-server",
+    "name": "weatherdb-server",
     "version": "1.0.0",
     "description": "Node server for the weather app",
     "main": "index.js",
