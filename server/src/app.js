@@ -1,10 +1,9 @@
 'use strict';
 
 
-const express = require('express');
-const r = require('rethinkdb');
-
-const app = express();
+const express = require('express'),
+      r = require('rethinkdb'),
+      app = express();
 
 r.connect({host:'rethinkdb'})
     .then(rememberConnection)
