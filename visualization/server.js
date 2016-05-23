@@ -6,6 +6,7 @@ const http = require('http'),
       server = http.createServer(handle),
       io = require('socket.io')(server),
       PORT = 80;
+var retries = 10;
 
 
 io.on('connection', s => console.log('New connection:', s));
@@ -13,10 +14,18 @@ io.on('connection', s => console.log('New connection:', s));
 r.connect({host:'rethinkdb'}).then(startServer);
 
 function startServer(conn) {
+    var up = false;
     server._rConn = conn;
     console.log('Connected to DB...');
     r.table('weather').changes().run(conn, (_, csr) => csr.each(notify))
-	.then(() => server.listen(PORT, () => console.log('Server started...')));
+	.then(() => server.listen(PORT, () => console.log('Server started...')))
+    	.error(() => {
+	    if (--retries > 0) {
+		setTimeout(()=>startServer(conn), 5000);
+	    } else {
+		console.error('Failed to connect to server!');
+	    }
+	});
 }
 
 function notify(_, x) {
