@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <script src="p5.min.js"></script>
+    <script>
+var data = [2.7, 3, 8, 1.1, 38];
+
+function setup() {
+    createCanvas(500, 500);
+    stroke('white');
+    textFont("mono");
+    textSize(18);
+}
+
+function r(i, x, date) {
+    date = date || new Date();
+    fill('white');
+    rect(140, 20 + i * 30, x * 10, 20, 5);
+    fill('#CCCCFF');
+    text(x, 15, 36 + i * 30);
+    fill('grey');
+    text(date.toISOString().replace ("T", " ").slice(0, 16), 5, 36 + i * 30);
+}
+
+function draw() {
+    background('#8080ff');
+    fill('white');
+    rect(0, 0, 135, 500);
+    data.forEach((x, i) => r(i, x));
+}
+    </script>
+  </head>
+  <body>
+    <h1>p5 Test</h1>
+  </body>
+</html>
