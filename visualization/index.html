@@ -3,16 +3,35 @@
   <head>
     <meta charset="utf-8"/>
     <script src="p5.min.js"></script>
+    <script src="socket.io-1.4.5.js"></script>
     <script>
+const socket = io();
+var data;
+
 function preload() {
-    data = loadJSON("/data");
+    data = loadJSON('/data');
+    socket.on('data', x => data.push(x));
 }
+
 
 function setup() {
     createCanvas(500, 500);
     stroke('white');
     textFont("mono");
     textSize(18);
+}
+
+
+function draw() {
+    restrictDataTo15();
+    background('#8080ff');
+    fill('white');
+    rect(0, 0, 140, 500);
+    data.forEach((x, i) => r(i, x.temperature, x.timestamp.replace ("T", " ").slice(0, 16)));
+}
+
+function restrictDataTo15() {
+    data = data.slice(Math.max(0, data.length - 15));
 }
 
 function r(i, x, label) {
@@ -23,13 +42,6 @@ function r(i, x, label) {
     text(x, 148, 36 + i * 30);
     fill('grey');
     text(label, 5, 36 + i * 30);
-}
-
-function draw() {
-    background('#8080ff');
-    fill('white');
-    rect(0, 0, 140, 500);
-    data.forEach((x, i) => r(i, x.temperature, x.timestamp.replace ("T", " ").slice(0, 16)));
 }
     </script>
   </head>

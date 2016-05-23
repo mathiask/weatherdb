@@ -3,15 +3,25 @@
 const http = require('http'),
       fs = require('fs'),
       r = require('rethinkdb'),
-      PORT = 80,
-      server = http.createServer(handle);
+      server = http.createServer(handle),
+      io = require('socket.io')(server),
+      PORT = 80;
+
+
+io.on('connection', s => console.log('New connection:', s));
 
 r.connect({host:'rethinkdb'}).then(startServer);
 
 function startServer(conn) {
     server._rConn = conn;
     console.log('Connected to DB...');
-    server.listen(PORT, () => console.log('Server started...'));
+    r.table('weather').changes().run(conn, (_, csr) => csr.each(notify))
+	.then(() => server.listen(PORT, () => console.log('Server started...')));
+}
+
+function notify(_, x) {
+    console.log('notifying about', x);
+    io.emit('data', x.new_val);
 }
 
 function handle(req, res) {
@@ -23,6 +33,7 @@ function handle(req, res) {
     case '/index.html':
 	serveStatic('index.html', res, 'text/html');
 	break;
+    case '/socket.io-1.4.5.js':
     case '/p5.min.js':
 	serveStatic(req.url.slice(1), res, 'text/javascript');
 	break;

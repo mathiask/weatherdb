@@ -1,11 +1,12 @@
 {
-    "name": "weatherdb-visualization",
-    "version": "1.0.0",
-    "description": "Minimal server to visualize weather data in a browser",
-    "main": "server.js",
-    "author": "Mathias Kegelmann",
-    "license": "ISC",
-    "dependencies": {
-	"rethinkdb": "^2.3.1"
-    }
+  "name": "weatherdb-visualization",
+  "version": "1.0.0",
+  "description": "Minimal server to visualize weather data in a browser",
+  "main": "server.js",
+  "author": "Mathias Kegelmann",
+  "license": "ISC",
+  "dependencies": {
+    "rethinkdb": "^2.3.1",
+    "socketio": "^1.0.0"
+  }
 }
