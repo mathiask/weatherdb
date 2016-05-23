@@ -61,7 +61,7 @@ function handleError(res) {
 app.get('/temps', dumpTableHandlerFor('weather'));
 
 function dumpTableHandlerFor(table) {
-    return (req, res) =>
+    return (_, res) =>
 	r.table(table).run(app._rConn)
 	.then(c => c.toArray())
 	.then(r => res.json(r))
