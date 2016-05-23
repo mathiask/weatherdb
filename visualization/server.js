@@ -44,7 +44,7 @@ function serveStatic(filename, res, contentType) {
 
 function data(res) {
     res.setHeader('Content-Type', 'application/json');
-    r.table('weather').run(server._rConn)
+    r.table('weather').orderBy('timestamp').run(server._rConn)
 	.then(c => c.toArray())
 	.then(o => res.end(JSON.stringify(o)))
     	.error(e => handleError(res, e));
