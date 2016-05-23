@@ -4,7 +4,9 @@
     <meta charset="utf-8"/>
     <script src="p5.min.js"></script>
     <script>
-var data = [2.7, 3, 8, 1.1, 38];
+function preload() {
+    data = loadJSON("/data");
+}
 
 function setup() {
     createCanvas(500, 500);
@@ -13,21 +15,21 @@ function setup() {
     textSize(18);
 }
 
-function r(i, x, date) {
-    date = date || new Date();
+function r(i, x, label) {
+    label = label || 'unknown';
     fill('white');
-    rect(140, 20 + i * 30, x * 10, 20, 5);
+    rect(145, 20 + i * 30, x * 10, 20, 5);
     fill('#CCCCFF');
-    text(x, 15, 36 + i * 30);
+    text(x, 148, 36 + i * 30);
     fill('grey');
-    text(date.toISOString().replace ("T", " ").slice(0, 16), 5, 36 + i * 30);
+    text(label, 5, 36 + i * 30);
 }
 
 function draw() {
     background('#8080ff');
     fill('white');
-    rect(0, 0, 135, 500);
-    data.forEach((x, i) => r(i, x));
+    rect(0, 0, 140, 500);
+    data.forEach((x, i) => r(i, x.temperature, x.timestamp.replace ("T", " ").slice(0, 16)));
 }
     </script>
   </head>
