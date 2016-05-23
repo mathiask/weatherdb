@@ -1,5 +1,6 @@
 'use strict';
 
+
 const express = require('express');
 const r = require('rethinkdb');
 
@@ -20,7 +21,7 @@ function ensureThatTableExists(t) {
     return () => {
 	console.log('Checking table');
 	r.db('test').tableList().contains(t).run(app._rConn)
-	    .then((b) => {
+	    .then(b => {
 		console.log('Table', t, 'found:', b);
 		return b ? null : r.db('test').tableCreate(t).run(app._rConn);
 	    });
@@ -63,8 +64,8 @@ app.get('/temps', dumpTableHandlerFor('weather'));
 function dumpTableHandlerFor(table) {
     return (req, res) =>
 	r.table(table).run(app._rConn)
-	.then((c) => c.toArray())
-	.then((r) => res.json(r))
+	.then(c => c.toArray())
+	.then(r => res.json(r))
     	.error(handleError(res));
 }
 
