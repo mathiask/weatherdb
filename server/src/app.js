@@ -1,9 +1,11 @@
 'use strict';
 
 
-const express = require('express'),
-      r = require('rethinkdb'),
-      app = express();
+const app = require('express')(),
+      bodyParser = require('body-parser'),
+      r = require('rethinkdb');
+
+app.use(bodyParser.urlencoded({ extended: true }));
 
 r.connect({host:'rethinkdb'})
     .then(rememberConnection)
@@ -38,7 +40,7 @@ function startServer() {
 app.get('/', (_,res) => res.send('Hello, world!\n') );
 
 
-app.post('/temp', (req, res) => recordTemperature(req.query.v, res));
+app.post('/temp', (req, res) => {console.log('##', req.body); recordTemperature(req.body.v, res)});
 
 // GET is only added to allow easy testing
 app.get('/temp/:temp', (req, res) => recordTemperature(req.params.temp, res));
@@ -54,7 +56,10 @@ function recordTemperature(temp, res) {
 }
 
 function handleError(res) {
-    return () => res.send(500, 'Internal error\n');
+    return e => {
+	console.error(e);
+	res.status(500).send('Internal server error\n');
+    };
 }
 
 
