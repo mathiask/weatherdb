@@ -33,9 +33,14 @@ function sendTemperature(s) {
     options.headers['Content-Length'] = data.length;
     console.log('Sending ', data);
     req = http.request(options);
+    req.on('error', errorLogger);
     req.write(data);
     req.end();
     setTimeout(readAndSendTemperature, 1000 * 60 * 15);
+}
+
+function errorLogger(e) {
+    console.log(`problem with request: ${e.message}`);
 }
 
 readAndSendTemperature();
