@@ -25,5 +25,6 @@ services:
 
   arduino-mock:
     build: arduino-mock
+    image: mathiask/weatherdb-arduino-mock
     depends_on:
       - "server"
