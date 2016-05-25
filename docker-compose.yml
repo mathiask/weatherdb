@@ -22,3 +22,8 @@ services:
       - "db:rethinkdb"
     depends_on:
       - "db"
+
+  arduino-mock:
+    build: arduino-mock
+    depends_on:
+      - "server"
