@@ -23,7 +23,14 @@ function readAndSendTemperature() {
 	     res => {
 		 res.setEncoding('utf8');
 		 res.on('data', sendTemperature)
+	     }).on('error', e => {
+		 errorLogger(e);
+		 reschedule();
 	     });
+}
+
+function reschedule() {
+    setTimeout(readAndSendTemperature, 1000 * 60 * 15);
 }
 
 function sendTemperature(s) {
@@ -36,7 +43,7 @@ function sendTemperature(s) {
     req.on('error', errorLogger);
     req.write(data);
     req.end();
-    setTimeout(readAndSendTemperature, 1000 * 60 * 15);
+    reschedule();
 }
 
 function errorLogger(e) {
