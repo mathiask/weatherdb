@@ -40,7 +40,7 @@ function startServer() {
 app.get('/', (_,res) => res.send('Hello, world!\n') );
 
 
-app.post('/temp', (req, res) => {console.log('##', req.body); recordTemperature(req.body.v, res)});
+app.post('/temp', (req, res) => recordTemperature(req.body.v, res));
 
 // GET is only added to allow easy testing
 app.get('/temp/:temp', (req, res) => recordTemperature(req.params.temp, res));
