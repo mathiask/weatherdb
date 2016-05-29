@@ -3,6 +3,7 @@ LABEL description="Read temperature data from openweathermap and send it to serv
 LABEL version="0.1"
 MAINTAINER Mathias Kegelmann
 
+RUN mkdir /app
 WORKDIR /app
 
 COPY . .

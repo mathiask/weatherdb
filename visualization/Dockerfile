@@ -3,6 +3,7 @@ LABEL description="A simple node app serving a p5js web page"
 LABEL version="0.1"
 MAINTAINER Mathias Kegelmann
 
+RUN mkdir /app
 WORKDIR /app
 
 COPY package.json .

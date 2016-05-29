@@ -3,6 +3,7 @@ LABEL description="A simple node/express server connected to RethinkDB at host r
 LABEL version="0.1"
 MAINTAINER Mathias Kegelmann
 
+RUN mkdir /server
 WORKDIR /server
 
 COPY package.json .

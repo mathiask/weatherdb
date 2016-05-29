@@ -1,30 +1,21 @@
-version: '2'
-services:
-  db:
-    image: rethinkdb
+db:
+  image: rethinkdb
 
-  server:
-    build: server
-    image: mathiask/weatherdb-server
-    ports:
-      - "3000:3000"
-    links:
-      - "db:rethinkdb"
-    depends_on:
-      - "db"
+server:
+  build: server
+  ports:
+    - "3000:3000"
+  links:
+    - "db:rethinkdb"
 
-  visualization:
-    build: visualization
-    image: mathiask/weatherdb-visualization
-    ports:
-      - "80:80"
-    links:
-      - "db:rethinkdb"
-    depends_on:
-      - "db"
+visualization:
+  build: visualization
+  ports:
+    - "8080:80"
+  links:
+    - "db:rethinkdb"
 
-  arduino-mock:
-    build: arduino-mock
-    image: mathiask/weatherdb-arduino-mock
-    depends_on:
-      - "server"
+arduino-mock:
+  build: arduino-mock
+  links:
+    - "server"
